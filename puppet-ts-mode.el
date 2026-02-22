@@ -6,7 +6,7 @@
 ;; Maintainer:       Stefan Möding <stm@kill-9.net>
 ;; Version:          0.2.0
 ;; Created:          <2024-03-02 13:05:03 stm>
-;; Updated:          <2026-01-23 17:55:13 stm>
+;; Updated:          <2026-02-22 12:43:11 stm>
 ;; URL:              https://github.com/smoeding/puppet-ts-mode
 ;; Keywords:         languages
 ;; Package-Requires: ((emacs "29.1"))
@@ -128,7 +128,7 @@
   '("alias" "audit" "before" "consume" "export" "loglevel" "noop"
     "notify" "require" "schedule" "stage" "subscribe" "tag" "ensure")
   "Metaparameter attributes for all resource types.
-Strictly speakting, \"ensure\" is not a real metaparameter, but it
+Strictly speaking, \"ensure\" is not a real metaparameter, but it
 is added here because it is common and important.")
 
 ;; https://www.puppet.com/docs/puppet/latest/function.html
@@ -420,7 +420,7 @@ automatic alignment if electric."
 ;; Indentation
 
 (defcustom puppet-ts-indent-level 2
-  "Number of spaces for each indententation step."
+  "Number of spaces for each indentation step."
   :group 'puppet-ts
   :type 'integer
   :safe 'integerp)
@@ -508,7 +508,7 @@ type must match one of the given type names."
 ;; Imenu
 
 (defun puppet-ts--resource-imenu-name (node)
-  "Return the imenu title for NODE."
+  "Return the Imenu title for NODE."
   (let ((type (treesit-node-type node)))
     (cond ((string-equal type "resource_type")
            (concat (puppet-ts-resource-type node)
@@ -951,7 +951,7 @@ without the \"$\" prefix."
 (defcustom puppet-ts-metaparameters
   '("alias" "audit" "before" "loglevel" "noop" "notify" "require" "schedule"
     "stage" "subscribe" "tag")
-  "A list of the Puppet metaparemeters used for completion."
+  "A list of the Puppet metaparameters used for completion."
   :group 'puppet-ts
   :type '(repeat string))
 
@@ -1467,7 +1467,7 @@ By convention a Puppet manifest only has a single definition of
 a class, defined type or function.  So the navigation function
 `beginning-of-defun' and `end-of-defun' would normally only jump
 to the beginning or the end of the buffer.  This does not provide
-any benefit and so the mode uses the associated keybindings to go
+any benefit and so the mode uses the associated key bindings to go
 to the preceding (\\[treesit-beginning-of-defun]) or the following (\\[treesit-end-of-defun]) resource
 declaration.  Putting the region around this declaration by
 calling the function `mark-defun' (\\[mark-defun]) comes for free.
