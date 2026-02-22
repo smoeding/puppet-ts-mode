@@ -6,7 +6,7 @@
 ;; Maintainer:       Stefan Möding <stm@kill-9.net>
 ;; Version:          0.2.0
 ;; Created:          <2024-03-02 13:05:03 stm>
-;; Updated:          <2026-02-22 12:43:11 stm>
+;; Updated:          <2026-02-22 12:44:59 stm>
 ;; URL:              https://github.com/smoeding/puppet-ts-mode
 ;; Keywords:         languages
 ;; Package-Requires: ((emacs "29.1"))
@@ -74,8 +74,9 @@
 ;;   current buffer in noop-mode with `puppet-ts-apply' (bound to "C-c C-c").
 ;;
 ;; The package uses a Tree-sitter library to parse Puppet code and you need
-;; to install the appropriate parser.  This can be done by using this Elisp
-;; code:
+;; to install the appropriate parser (which is defined by the constant
+;; `puppet-ts-mode-treesit-language-source').  This can be done by using
+;; this Elisp code:
 ;;
 ;;    (require 'puppet-ts-mode)
 ;;    (puppet-ts-mode-install-grammar)
