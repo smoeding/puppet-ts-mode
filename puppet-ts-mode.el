@@ -6,7 +6,7 @@
 ;; Maintainer:       Stefan Möding <stm@kill-9.net>
 ;; Version:          0.2.1
 ;; Created:          <2024-03-02 13:05:03 stm>
-;; Updated:          <2026-02-22 12:46:09 stm>
+;; Updated:          <2026-02-23 12:19:41 stm>
 ;; URL:              https://github.com/smoeding/puppet-ts-mode
 ;; Keywords:         languages
 ;; Package-Requires: ((emacs "29.1"))
@@ -43,6 +43,9 @@
 ;;   Puppet syntax elements like comments, strings, variables, constants,
 ;;   keywords, resource types and their metaparameters.  Syntax errors can be
 ;;   shown using a warning face by setting `treesit-font-lock-level' to 4.
+;;   Some generic syntax elements (comments, strings, numbers,...) use the
+;;   default Emacs faces.  This allows other packages like `flyspell' to
+;;   spell-check comments and strings without any additional setup.
 ;;
 ;; Indentation: Automatic indentation according to the Puppet coding
 ;;   standards is provided.
@@ -212,26 +215,6 @@ automatic alignment if electric."
 
 ;;; Faces
 
-(defface puppet-ts-comment
-  '((t :inherit font-lock-comment-face))
-  "Face for comments in Puppet."
-  :group 'puppet-ts)
-
-(defface puppet-ts-string
-  '((t :inherit font-lock-string-face))
-  "Face for strings in Puppet."
-  :group 'puppet-ts)
-
-(defface puppet-ts-regexp
-  '((t :inherit font-lock-regexp-face))
-  "Face for regular expressions."
-  :group 'puppet-ts)
-
-(defface puppet-ts-escape
-  '((t :inherit font-lock-escape-face))
-  "Face for escape sequences."
-  :group 'puppet-ts)
-
 (defface puppet-ts-keyword
   '((t :inherit font-lock-keyword-face))
   "Face for keywords in Puppet."
@@ -272,26 +255,6 @@ automatic alignment if electric."
   "Face for the name of a function being called in Puppet."
   :group 'puppet-ts)
 
-(defface puppet-ts-operator
-  '((t :inherit font-lock-operator-face))
-  "Face for operators."
-  :group 'puppet-ts)
-
-(defface puppet-ts-negation-char
-  '((t :inherit font-lock-negation-char-face))
-  "Face for negation characters."
-  :group 'puppet-ts)
-
-(defface puppet-ts-number
-  '((t :inherit font-lock-number-face))
-  "Face for numbers."
-  :group 'puppet-ts)
-
-(defface puppet-ts-warning
-  '((t :inherit font-lock-warning-face))
-  "Face for language errors found by the parser."
-  :group 'puppet-ts)
-
 
 ;; Font-Lock
 
@@ -313,17 +276,17 @@ automatic alignment if electric."
   `( ;;
     :feature comment
     :language puppet
-    ((comment) @puppet-ts-comment)
+    ((comment) @font-lock-comment-face)
 
     :feature string
     :language puppet
-    (((double_quoted_string) @puppet-ts-string)
-     ((single_quoted_string) @puppet-ts-string)
-     ((heredoc_body) @puppet-ts-string))
+    (((double_quoted_string) @font-lock-string-face)
+     ((single_quoted_string) @font-lock-string-face)
+     ((heredoc_body) @font-lock-string-face))
 
     :feature regexp
     :language puppet
-    ((regex) @puppet-ts-regexp)
+    ((regex) @font-lock-regexp-face)
 
     :feature string-interpolation
     :language puppet
@@ -333,9 +296,9 @@ automatic alignment if electric."
     :feature escape-sequence
     :language puppet
     :override t
-    ((double_quoted_string (escape_sequence) @puppet-ts-escape)
-     (single_quoted_string (escape_sequence) @puppet-ts-escape)
-     (heredoc_body (escape_sequence) @puppet-ts-escape))
+    ((double_quoted_string (escape_sequence) @font-lock-escape-face)
+     (single_quoted_string (escape_sequence) @font-lock-escape-face)
+     (heredoc_body (escape_sequence) @font-lock-escape-face))
 
     :feature variable
     :language puppet
@@ -348,7 +311,7 @@ automatic alignment if electric."
 
     :feature number
     :language puppet
-    ((number) @puppet-ts-number)
+    ((number) @font-lock-number-face)
 
     :feature definition
     :language puppet
@@ -407,14 +370,14 @@ automatic alignment if electric."
 
     :feature operator
     :language puppet
-    ((unary operator: "!" @puppet-ts-negation-char)
-     (unary operator: _  @puppet-ts-operator)
-     (binary operator: _ @puppet-ts-operator))
+    ((unary operator: "!" @font-lock-negation-char-face)
+     (unary operator: _  @font-lock-operator-face)
+     (binary operator: _ @font-lock-operator-face))
 
     :feature error
     :language puppet
     :override t
-    ((ERROR) @puppet-ts-warning))
+    ((ERROR) @font-lock-warning-face))
   "`treesit-font-lock-settings' for `puppet-ts-mode'.")
 
 
